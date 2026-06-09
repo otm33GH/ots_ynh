@@ -39,7 +39,8 @@ disableThemeSwitcher: false
 # Override the choices to be displayed in the expiry dropdown. Values
 # are given in seconds and the order of the values controls the order
 # in the dropdown.
-expiryChoices: [300, ...]
+
+# expiryChoices: [300, ...]
 
 # Custom path to override embedded resources. You can override any
 # file present in the `frontend` directory (which is baked into the
@@ -47,7 +48,8 @@ expiryChoices: [300, ...]
 # example the appIcon given above). Those files are available at the
 # root of the application (i.e. an app.png would be served at
 # https://ots.example.com/app.png).
-overlayFSPath: /path/to/ots-customization
+
+# overlayFSPath: /path/to/ots-customization
 
 # Switch to formal translations for languages having those defined.
 # Languages not having a formal version will still display the normal
