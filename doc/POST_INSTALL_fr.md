@@ -1,0 +1,1 @@
+**Les secrets sont stockés en mémoire. Ils sont perdus au redémarrage du serveur, lors d'une mise à jour, ou d'une restauration.**

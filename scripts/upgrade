@@ -18,28 +18,9 @@ ynh_systemctl --service="$app" --action="stop"
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env apps/papra-server/db.sqlite"
-
-pushd "$install_dir"
-	ynh_hide_warnings corepack enable && COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack prepare pnpm@latest --activate
-	ynh_exec_as_app pnpm install 
-	ynh_exec_as_app pnpm -r build
-	ynh_exec_as_app mkdir -p apps/papra-server/public
-	ynh_exec_as_app cp -r apps/papra-client/dist/* apps/papra-server/public/
-	ynh_exec_as_app pnpm store prune
-# temporary smtp fix
- ynh_replace --match="# EMAILS_FROM_ADDRESS=Papra <auth@mail.papra.app>" --replace="EMAILS_FROM_ADDRESS='Papra $app@$domain>'" --file=.env
- ynh_replace --match="# EMAILS_DRIVER=logger" --replace="EMAILS_DRIVER=smtp" --file=.env
- ynh_replace --match="SMTP_SECURE=true" --replace="SMTP_SECURE=false" --file=.env
-popd
+ynh_setup_source --dest_dir="$install_dir" --full_replace=1 --keep="env customize.yaml"
 
 chown -R "$app:$app" "$install_dir"
-
-#=================================================
-# UPDATE A CONFIG FILE
-#=================================================
-
-ynh_config_add --template="papra.config.yaml" --destination="$install_dir/apps/papra-server/papra.config.yaml"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATION
@@ -50,7 +31,7 @@ ynh_config_add_nginx
 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="Papra Docs" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="One Time Secret service" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE

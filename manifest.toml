@@ -1,83 +1,68 @@
 #:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/manifest.v2.schema.json
 
 packaging_format = 2
-id = "papra"
-name = "Papra"
-description.en = "Document archiving platform"
-description.fr = "Plateforme d'archivage de documents"
-version = "26.3.0~ynh1"
+id = "ots"
+name = "ots"
+description.en = "One time secret sharing platform with symetric encryption in the browser"
+description.fr = "Partage de mot de passe crypté dans le navigateur"
+version = "1.21.5~ynh1"
 
 maintainers = ["otm33GH"]
 
 [upstream]
-license = "GPL-3.0-only"
-website = "https://papra.app/fr/"
-demo = "https://demo.papra.app/"
-admindoc = "https://docs.papra.app/"
-code = "https://github.com/papra-hq/papra"
+license = "Apache-2.0"
+website = "https://ots.fyi/"
+demo = "https://ots.fyi/"
+admindoc = "https://github.com/Luzifer/ots/wiki"
+code = "https://github.com/Luzifer/ots"
 
 [integration]
 yunohost = ">= 12.1.39"
 helpers_version = "2.1"
-architectures = "all"
+architectures = ["amd64", "arm64"]
 multi_instance = true
 
 ldap = false
 sso = false
 
-disk = "2000M"
-ram.build = "1500M"
+disk = "200M"
+ram.build = "500M"
 ram.runtime = "500M"
 
 [install]
     [install.domain]
     type = "domain"
 
+    [install.path]
+    type = "path"
+    default = "/ots"
+
     [install.init_main_permission]
     type = "group"
     default = "visitors"
 
-    [install.language]
-    ask.en = "Choose the OCR language"
-    ask.fr = "Choisissez la langue pour l'OCR"
-    type = "select"
-    choices = ["fra", "cat", "dan", "deu", "eng", "eus", "fin", "glg", "ita", "nld", "nor", "pol", "port", "ron", "rus", "spa", "slv", "tur", "ukr"]
-    default = "fra"
-
-    [install.email_verification]
-    type = "boolean"
-    ask.en = "Allow email verification?"
-    ask.fr = "Activer la confirmation de l'e-mail ?"
-    default = true
-
-    [install.doc_storage_driver]
-    ask.en = "Storage driver"
-    ask.fr = "Storage driver"
-    type = "select"
-    choices = ["filesystem", "s3", "in-memory", "azure-blob"]
-    default = "filesystem"
 
 [resources]
     [resources.sources]
 
     [resources.sources.main]
-    url = "https://github.com/papra-hq/papra/archive/refs/tags/@papra/app@26.3.0.tar.gz"
-    sha256 = "247b523f51f9c6dc70ea06f066e77622eb33674a30314dd75261337a3d5f87e1"
-    autoupdate.strategy = "latest_github_tag"
+    amd64.url = "https://github.com/Luzifer/ots/releases/download/v1.21.5/ots_linux_amd64.tgz"
+    amd64.sha256 = "7be2782a01103a2dddf328e8004b2b2533265acd210eb4d1cccdc64342930bd7"
+    arm64.url = "hhttps://github.com/Luzifer/ots/releases/download/v1.21.5/ots_linux_arm64.tgz"
+    arm64.sha256 = "2ea956b87f8a244cc968de6dae380efe142cc880fc0e0cbdcdd39acf4d980230"
+
+    autoupdate.strategy = "latest_github_release"
 
     [resources.system_user]
 	allow_email = true
     
     [resources.install_dir]
 
-    [resources.data_dir]
-
     [resources.permissions]
     main.url = "/"
     main.auth_header = false
 
     [resources.ports]
-
-    [resources.nodejs]
-    version = "24"
     
+    [resources.apt]
+    packages = "redis-server"

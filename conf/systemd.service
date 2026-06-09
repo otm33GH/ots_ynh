@@ -1,15 +1,15 @@
 [Unit]
-Description=Papra: document archiving platform
-After=network.target
+Description=One-Time-Secret Service
+After=network-online.target
+Requires=network-online.target
 
 [Service]
 Type=simple
 User=__APP__
 Group=__APP__
-Environment="PATH=__PATH_WITH_NODEJS__"
-WorkingDirectory=__INSTALL_DIR__/apps/papra-server
-EnvironmentFile=__INSTALL_DIR__/.env
-ExecStart=__NODEJS_DIR__/pnpm start:with-migrations
+WorkingDirectory=__INSTALL_DIR__
+EnvironmentFile=__INSTALL_DIR__/env
+ExecStart=__INSTALL_DIR__/ots
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 Restart=on-failure

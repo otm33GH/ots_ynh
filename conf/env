@@ -1,0 +1,5 @@
+CUSTOMIZE=__INSTALL_DIR__/customize.yaml                       
+LISTEN=127.0.0.1:__PORT__                                          
+SECRET_EXPIRY=604800                                           
+STORAGE_TYPE=mem     
+#REDIS_URL=redis://localhost:6379/__REDIS_DB__
