@@ -1,1 +1,1 @@
-**Secrets are stored in memory and will be lost on restart, upgrade, or restore.**
+**:warning: Secrets are stored in memory and will be lost on restart, upgrade, or restore.**
