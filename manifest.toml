@@ -61,5 +61,3 @@ ram.runtime = "500M"
 
     [resources.ports]
     
-    [resources.apt]
-    packages = "redis-server"
